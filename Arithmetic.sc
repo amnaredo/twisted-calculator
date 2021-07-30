@@ -12,10 +12,10 @@ def number[_: P] = P(
   case "four"  => Number(4); case "five"  => Number(5)
   case "six"   => Number(6); case "seven" => Number(7)
   case "eight" => Number(8); case "nine"  => Number(9)
-}
+}//.log
 def ws[_: P] = P( " ".rep(1) )
-def operator[_: P] = P( "plus" | "minus" | "times" | "divide" ).!
-def expr[_: P] = P( "(" ~ parser ~ ")" | number )
+def operator[_: P] = P( "plus" | "minus" | "times" | "divide" ).!//.log
+def expr[_: P] = P( "(" ~/ parser ~ ")" | number )//.log
 def parser[_: P]: P[Expr] = P( expr ~ ws ~ operator ~ ws ~ expr ).map{
   case (lhs, op, rhs) => BinOp(lhs, op, rhs)
-}
+}//.log
